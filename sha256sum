@@ -1,0 +1,1426 @@
+#!/usr/bin/env node
+
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
+/**    -----------------------------------------------------------
+ *     evmfs.js
+ *     -----------------------------------------------------------
+ *     Copyright ©
+ *       Pellegrino Prevete
+ *         2024, 2025, 2026
+ * 
+ *     All rights reserved
+ *     -----------------------------------------------------------
+ * 
+ *     This program is free software: you can redistribute it
+ *     and/or modify it under the terms of the GNU General Public
+ *     License as published by the Free Software Foundation,
+ *     either version 3 of the License, or (at your option) any
+ *     later version.
+ * 
+ *     This program is distributed in the hope that it will be
+ *     useful, but WITHOUT ANY WARRANTY; without even the implied
+ *     warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ *     PURPOSE.
+ *     See the
+ *     GNU General Public License for more details.
+ * 
+ *     You should have received a copy of the GNU General Public
+ *     License along with this program.
+ *     If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/* Crash Javascript global variables */
+
+  /* global
+       runtime_environment:
+         writable */
+
+/* LibEVM writable global variables */
+
+  /* global
+       api_key_path:
+         writable */
+
+  /* global
+       call_timeout:
+         writable */
+
+  /* global
+       measure_unit:
+         writable */
+
+  /* global
+       price_gas:
+         writable */
+
+  /* global
+       retries_max:
+         writable */
+
+  /* global
+       rpc_selection:
+         writable */
+
+  /* global
+       target_network:
+         writable */
+
+  /* global
+       target_networks:
+         writable */
+
+  /* global
+       wallet_name:
+         writable */
+
+
+/* LibEVM application global variables */
+
+  /* global
+       deployments_dir:
+         writable */
+
+  /* global
+       user_level:
+         writable */
+
+/* EVMFS common global variables */
+
+  /* global
+       app_opts:
+         writable */
+
+  /* global
+       call_method:
+         writable */
+
+  /* global
+       encoding_type:
+         writable */
+
+  /* global
+       tasks_parallel:
+         writable */
+
+  /* global
+       lock_only:
+         writable */
+
+  /* global
+       cache_dir:
+         writable */
+
+  /* global
+       fs_address:
+         writable */
+
+  /* global
+       fs_version:
+         writable */
+
+  /* global
+       ccfs_address:
+         writable */
+
+  /* global
+       ll_address:
+         writable */
+
+  /* global
+       publication_namespace:
+         writable */
+
+  /* global
+       index_network:
+         writable */
+
+  /* global
+       file_hash:
+         writable */
+
+/* EVMFS Get global variables */
+
+  /* global
+       output_files:
+         writable */
+
+  /* global
+       input_uris:
+         writable */
+
+/* EVMFS Publish global variables */
+
+  /* global
+       chunk_length:
+         writable */
+
+  /* global
+       encoding_skip:
+         writable */
+
+  /* global
+       input_files:
+         writable */
+
+/* eslint-disable
+     no-unused-vars */
+
+/* eslint
+     no-undef:
+       "error" */
+
+/* eslint
+     no-unused-vars: [
+       "error",
+       { "vars":
+           "local" }
+     ] */
+
+const
+  _libcrash =
+    await import(
+      "libcrash-js");
+/* global
+     _argv */
+const
+  _argv =
+    _libcrash._argv;
+/* global
+     _argv_get */
+const
+  _argv_get =
+    _libcrash._argv_get;
+/* global
+     _argv_url_get */
+const
+  _argv_url_get =
+    _libcrash._argv_url_get;
+/* global
+     _basename */
+const
+  _basename =
+    _libcrash._basename;
+/* global
+     _cmdline_check */
+const
+  _cmdline_check =
+    _libcrash._cmdline_check;
+/* global
+     _echo */
+const
+  _echo =
+    _libcrash._echo;
+/* global
+     _echo2 */
+const
+  _echo2 =
+    _libcrash._echo2;
+/* global
+     _exit */
+const
+  _exit =
+    _libcrash._exit;
+/* global
+     _get */
+const
+  _get =
+    _libcrash._get;
+/* global
+     _get_date_human */
+const
+  _get_date_human =
+    _libcrash._get_date_human;
+/* global
+     _global_get */
+const
+  _global_get =
+    _libcrash._global_get;
+/* global
+     _homedir_get */
+const
+  _homedir_get =
+    _libcrash._homedir_get;
+/* global
+     _msg_error */
+const
+  _msg_error =
+    _libcrash._msg_error;
+/* global
+     _msg_info */
+const
+  _msg_info =
+    _libcrash._msg_info;
+/* global
+     _override_set */
+const
+  _override_set =
+    _libcrash._override_set;
+/* global
+     _path_join */
+const
+  _path_join =
+    _libcrash._path_join;
+/* global
+     _require */
+const
+  _require =
+    _libcrash._require;
+/* global
+     _set */
+const
+  _set =
+    _libcrash._set;
+const
+  _libevm_module =
+    await _require(
+      "libevm");
+/* global
+     _contract_setup_auto_detect */
+const
+  _contract_setup_auto_detect =
+    _libevm_module._contract_setup_auto_detect;
+/* global
+     _libevm_app_overrides_set */
+const
+  _libevm_app_overrides_set =
+    _libevm_module._libevm_app_overrides_set;
+/* global
+     _libevm_cmdline_parse */
+const
+  _libevm_cmdline_parse =
+    _libevm_module._libevm_cmdline_parse;
+/* global
+     _libevm_global_variables */
+const
+  _libevm_global_variables =
+    _libevm_module._libevm_global_variables;
+/* global
+     _libevm_app_global_variables */
+const
+  _libevm_app_global_variables =
+    _libevm_module._libevm_app_global_variables;
+/* global
+     _libevm_url_parse */
+const
+  _libevm_url_parse =
+    _libevm_module._libevm_url_parse;
+/* global
+     _wallet_overrides_set */
+const
+  _wallet_overrides_set =
+    _libevm_module._wallet_overrides_set;
+const
+  _libevmfs_module =
+    await import(
+      "./libevmfs");
+/* global
+     _call_auth_auto_detect */
+const
+  _call_auth_auto_detect =
+    _libevmfs_module._call_auth_auto_detect;
+/* global
+     _call_timeout_auto_detect */
+const
+  _call_timeout_auto_detect =
+    _libevmfs_module._call_timeout_auto_detect;
+/* global
+     _contracts_auto_detect */
+const
+  _contracts_auto_detect =
+    _libevmfs_module._contracts_auto_detect;
+/* global
+     _input_files_auto_detect */
+const
+  _input_files_auto_detect =
+    _libevmfs_module._input_files_auto_detect;
+/* global
+     _input_uris_auto_detect */
+const
+  _input_uris_auto_detect =
+    _libevmfs_module._input_uris_auto_detect;
+/* global
+     _output_files_auto_detect */
+const
+  _output_files_auto_detect =
+    _libevmfs_module._output_files_auto_detect;
+/* global
+     _tasks_parallel_auto_detect */
+const
+  _tasks_parallel_auto_detect =
+    _libevmfs_module._tasks_parallel_auto_detect;
+/* global
+     _evmfs */
+const
+  _evmfs =
+    _libevmfs_module._evmfs;
+const
+  _ccget_module =
+    _libevmfs_module._ccget_module;
+/* global
+     _chunks_ccget */
+const
+  _chunks_ccget =
+    _ccget_module._chunks_ccget;
+const
+  _check_module =
+    _libevmfs_module._check_module;
+/* global
+     _chunks_check */
+const
+  _chunks_check =
+    _check_module._chunks_check;
+const
+  _common_module =
+    _libevmfs_module._common_module;
+/* global
+     _global_variables_common */
+const
+  _global_variables_common =
+    _common_module._global_variables_common;
+/* global
+     _global_variables_evmfs_get */
+const
+  _global_variables_evmfs_get =
+    _common_module._global_variables_evmfs_get;
+/* global
+     _global_variables_evmfs_publish */
+const
+  _global_variables_evmfs_publish =
+    _common_module._global_variables_evmfs_publish;
+/* global
+     _url_parse_common */
+const
+  _url_parse_common =
+    _common_module._url_parse_common;
+/* global
+     _url_parse_evmfs_get */
+const
+  _url_parse_evmfs_get =
+    _common_module._url_parse_evmfs_get;
+/* global
+     _url_parse_evmfs_publish */
+const
+  _url_parse_evmfs_publish =
+    _common_module._url_parse_evmfs_publish;
+/* global
+     _get_module */
+const
+  _get_module =
+    _libevmfs_module._get_module;
+/* global
+     _chunks_get */
+const
+  _chunks_get =
+    _get_module._chunks_get;
+const
+  _index_module =
+    _libevmfs_module._index_module;
+/* global
+     _chunks_index */
+const
+  _chunks_index =
+    _index_module._chunks_index;
+const
+  _lock_module =
+    _libevmfs_module._lock_module;
+/* global
+     _chunks_lock */
+const
+  _chunks_lock =
+    _lock_module._chunks_lock;
+const
+  _lengthlock_module =
+    _libevmfs_module._lengthlock_module;
+/* global
+     _lengthlock */
+const
+  _lengthlock =
+    _lengthlock_module._lengthlock;
+const
+  _publish_module =
+    _libevmfs_module._publish_module;
+/* global
+     _chunks_publish*/
+const
+  _chunks_publish =
+    _publish_module._chunks_publish;
+const
+  _publish_bulk_module =
+    _libevmfs_module._publish_bulk_module;
+/* global
+     _publish_bulk */
+const
+  _publish_bulk =
+    _publish_bulk_module._publish_bulk;
+const
+  _verify_module =
+    _libevmfs_module._verify_module;
+/* global
+     _chunks_verify */
+const
+  _chunks_verify =
+    _verify_module._chunks_verify;
+
+function
+  _global_variables() {
+  _global_variables_common();
+  _global_variables_evmfs_get();
+  _global_variables_evmfs_publish();
+  /* global
+       call_date:
+         writable */
+  _set(
+    "call",
+    "date",
+    "");
+  /* global
+       app_name:
+         writable */
+  _set(
+    "app",
+    "name",
+    "evmfs.js");
+  /* global
+       target_command:
+         writable */
+  _set(
+    "target",
+    "command",
+    "");
+  /* global
+       target_key:
+         writable */
+  _set(
+    "target",
+    "key",
+    "");
+  /* global
+       target_value:
+         writable */
+  _set(
+    "target",
+    "value",
+    "");
+  _set(
+    "command",
+    "args",
+    []);
+  const
+    _global =
+      _global_get();
+  _global[
+    "quiet"] =
+    "";
+  /* global
+       verbose:
+         writable */
+  _global[
+    "verbose"] =
+    "";
+}
+
+async function
+  _overrides_set() {
+  let
+    _msg;
+  _override_set(
+    "call",
+    "date",
+    _get_date_human());
+  _override_set(
+    "lock",
+    "only",
+    "n");
+  _override_set(
+    "config",
+    "dir",
+    _path_join([
+      _homedir_get(),
+      ".config",
+      "evmfs"]));
+  _override_set(
+    "cache",
+    "dir",
+    _path_join([
+      _homedir_get(),
+      ".cache",
+      "evmfs"]));
+  _override_set(
+    "rpc",
+    "selection",
+    "kirsh");
+  _override_set(
+    "chunk",
+    "length",
+    "22000");
+  _override_set(
+    "call",
+    "method",
+    "standalone");
+  _override_set(
+    "encoding",
+    "skip",
+    "n");
+  _tasks_parallel_auto_detect();
+  _override_set(
+    "user",
+    "level",
+    "n");
+  _override_set(
+    "wallet",
+    "name",
+    "default");
+  _call_timeout_auto_detect();
+  _override_set(
+    "encoding",
+    "type",
+    "sha256sum");
+  _override_set(
+    "retries",
+    "max",
+    3);
+  _call_auth_auto_detect();
+  _input_files_auto_detect();
+  try {
+    _input_uris_auto_detect();
+  }
+  catch(
+    _error) {
+    _msg =
+      "Error detecting input file.";
+    _msg_error(
+      _msg,
+      0);
+    throw _error;
+  }
+  try { 
+    _output_files_auto_detect();
+  }
+  catch(
+    _error) {
+    _msg =
+      "Error detecting output file.";
+    _msg_error(
+      _msg,
+      0);
+    throw _error;
+  }
+  const
+    _app_name =
+      _get(
+        "app",
+        "name");
+  try {
+    await _libevm_app_overrides_set(
+      "evmfs");
+  }
+  catch(
+    _error) {
+    _msg =
+      "Error auto-detecting " +
+      "LibEVM application variables.";
+    _msg_error(
+      _msg,
+      0);
+    throw _error;
+  }
+  try {
+    await _contracts_auto_detect();
+  }
+  catch(
+    _error) {
+    _msg =
+      "Error running '_contracts_auto_detect'.";
+    _msg_error(
+      _msg,
+      0);
+    throw _error;
+  }
+  const
+    _call_auth =
+      _get(
+        "call",
+        "auth");
+  const
+    _target_networks =
+      _get(
+        "target",
+        "networks");
+  _override_set(
+    "index",
+    "network",
+    _target_networks[
+      0]);
+  if ( _call_auth == "y" ) {
+    const
+      _wallet_name =
+        _get(
+          "wallet",
+          "name");
+    const
+      _wallet_overrides_set_args = [
+        "evm-wallet",
+        _wallet_name,
+        _call_auth,
+        "n",               // QR support
+        _target_networks
+      ];
+    const
+      _wallet_overrides_set_up =
+        await _wallet_overrides_set.apply(
+          null,
+          _wallet_overrides_set_args);
+  }
+  else if ( _call_auth == "n" ) {
+    true;
+  }
+  else {
+    _msg =
+      `Unknown value '${_call_auth}' ` +
+      "for 'call_auth' variable.";
+    _msg_error(
+      _msg,
+      0);
+    throw _msg;
+  }
+}
+
+function
+  _usage(
+    _exit_code) {
+  let
+    _line,
+    _target_networks;
+  const
+    _program =
+      _basename(
+        _argv[
+          0]);
+  if ( target_networks.length < 1 ) {
+    _target_networks =
+      "All those supported by " +
+      "EVM Chains Info.";
+  }
+  else {
+    _target_networks =
+      _get(
+        "target",
+        "networks");
+  }
+  const
+    _text = [
+      "",
+      "Ethereum Virtual Machine File System",
+      "",
+      "Usage:",
+      `  ${_program}`,
+      "    [options]",
+      "    <command>",
+      "  ( [command-args] )",
+      "",
+      "  commands:",
+      "    get",
+      "      <resource-uri>",
+      "    publish",
+      "      <file-path>",
+      "",
+      "  networks:",
+      `    '${_target_networks}'`,
+      "",
+      "  options:",
+      "",
+      "    -m <call-method>, --call-method <method>",
+      "",
+      "      It can be 'standalone', 'library' or",
+      "      'simulate'.",
+      `      Default: ${call_method}`,
+      "",
+      "    -i <index-network>, --index-network <network>",
+      "",
+      "      EVM Network for the 'CrossChainFileSystem' and",
+      "      the LengthLock contracts.",
+      `      Default: ${index_network}`,
+      "",
+      "    -r <retries-max>, --retries-max <retries>",
+      "",
+      "      Maximum number of retries before failing",
+      `      Default: ${retries_max}`,
+      "",
+      "    -T <call-timeout>, --call-timeout <timeout>",
+      "",
+      "      Maximum number of milliseconds before",
+      "      declaring the call failed.",
+      `      Default: ${call_timeout}`,
+      "",
+      "    -P <tasks-parallel>, --tasks-parallel <num>",
+      "",
+      "      How many calls tasks perform at any",
+      "      given time.",
+      `      Default: ${tasks_parallel}`,
+      "",
+      "  get options:",
+      "",
+      "    -o <output-file>, --output-file <path>",
+      "",
+      "      Name of the file in which to save",
+      "      the downloaded resource.",
+      `      Default: ${output_files}`,
+      "",
+      "  publish options:",
+      "",
+      "    -L, --lock-only",
+      "",
+      "      Skip check and publish and only lock",
+      "      the file.",
+      `      Default: ${lock_only}`,
+      "",
+      "    -l <chunk-length>, --chunk-length <length>",
+      "",
+      "      Length of the encoded chunk depending.",
+      "      Note: it could be different whether",
+      "      you are using GNU Bash or Javascript",
+      "      version of Encoding Tools.",
+      "      On EVM networks one can write up",
+      "      around 24.000 characters but on",
+      "      some networks it seems it's not possible",
+      "      to spend the amount of gas needed to",
+      "      write that much.",
+      `      Default: ${chunk_length}`,
+      "",
+      "  contract options:",
+      "",
+      "    -A <fs-address>, --fs-address <address>",
+      "",
+      "      Address of the EVM file system",
+      "      on the network.",
+      `      Default: ${fs_address}`,
+      "",
+      "    -C <ccfs-address>, --ccfs-address <address>",
+      "",
+      "      Manually set address for",
+      "      the 'CrossChainFileSystem' contract",
+      "      on the network.",
+      `      Default: ${ccfs_address}`,
+      "",
+      "    -V <fs-version>, --fs-version <version>",
+      "",
+      "      Version of the target EVM file system.",
+      `      Default: ${fs_version}`,
+      "",
+      "  libevm options:",
+      "",
+      "    -u, --user-level",
+      "",
+      "      Whether to retrieve file system address",
+      "      from user directory or custom deployment.",
+      `      Default: ${user_level}`,
+      "",
+      "    -d <deployments-dir>, --deployments-dir <path>",
+      "",
+      "      Contracts deployments directory.",
+      `      Default: ${deployments_dir}`,
+      "",
+      "    -n <network>, --network <network>",
+      "",
+      "      EVM network names. Use either name",
+      "      or Chain ID.",
+      `      Default: ${target_networks}`,
+      "",
+      "    -g <price-gas>, --price-gas <amount>",
+      "",
+      "      Gas price. It can be 'auto', 'fast'",
+      "      or an integer.",
+      `      Default: ${price_gas}`,
+      "",
+      "    -U <measure-unit>, --measure-unit <unit>",
+      "",
+      "      Gas measure unit. It can be 'wei'",
+      "      or 'ether'.",
+      `      Default: ${measure_unit}`,
+      "",
+      "  credentials options:",
+      "",
+      "    -N <wallet-name>, --wallet-name <name>",
+      "",
+      "      Wallet name.",
+      `      Default: ${wallet_name}`,
+      "",
+      "    -w <wallet-path>, --wallet-path <path>",
+      "",
+      "      Wallet path.",
+      `      Default: ${wallet_path}`,
+      "",
+      "    -p <wallet-password>, --wallet-password <path>",
+      "",
+      "      Wallet password.",
+      `      Default: ${wallet_password}`,
+      "",
+      "    -s <wallet-seed>, --wallet-seed <path>",
+      "",
+      "      Wallet seed path.",
+      `      Default: ${wallet_seed}`,
+      "",
+      "    -k <api-key>, --api-key <path>",
+      "",
+      "      Etherscan-like service key.",
+      `      Default: ${api_key}`,
+      "",
+      "  application options:",
+      "",
+      "    -W <cache-dir>, --cache-dir <path>",
+      "",
+      "      Work directory.",
+      `      Default: ${cache_dir}`,
+      "",
+      "    -h, --help",
+      "",
+      "      This message.",
+      "",
+      "    -c, --color",
+      "",
+      "      Enable color output.",
+      "",
+      "    -v, --verbose",
+      "",
+      "      Enable verbose output.",
+      "",
+    ];
+  for ( _line of _text ) {
+    _echo(
+      _line);
+  }
+  _exit(
+    _exit_code);
+}
+
+function
+  _config_show() {
+  let
+    _text;
+  /* LibEVM-defined global variables */
+  /* global
+       api_key */
+  /* global
+       wallet_address */
+  /* global
+       wallet_password */
+  /* global
+       wallet_path */
+  /* global
+       wallet_seed */
+  let
+    _item,
+    _line;
+  const
+    _program =
+      _basename(
+        _argv[
+          0]);
+  _text = [
+    `${_program} configuration:`,
+    `                       Call date:   ${call_date}`,
+    `             Runtime environment:   ${runtime_environment}`,
+    `                  Target command:   ${target_command}`,
+    `                      Target key:   ${target_key}`,
+    `                    Target value:   ${target_value}`,
+    `                   Index network:   ${index_network}`,
+    `                     Call method:   ${call_method}`,
+    `                    Chunk length:   ${chunk_length}`,
+    `           Publication options:`,
+    `                       Lock only:   ${lock_only}`,
+    `                   Skip encoding:   ${encoding_skip}`,
+    `                   Encoding type:   ${encoding_type}`,
+    `                     Input files:`,
+  ];
+  for ( _item of input_files ) {
+    _text.push(
+      `                                    ${_item}`);
+  }
+  _text.push(
+    "              Download options:");
+  _text.push(
+    `                      Input URIs:`);
+  for ( _item of input_uris ) {
+    _text.push(
+      `                                    ${_item}`);
+  }
+  _text.push(
+    `                    Output files:`);
+  for ( _item of output_files ) {
+    _text.push(
+      `                                    ${_item}`);
+  }
+  _text =
+    _text.concat([
+      "              Contract options:",
+      `             File system address:   ${fs_address}`,
+      ` Cross-chain file system address:   ${ccfs_address}`,
+      `             File system version:   ${fs_version}`,
+      `           Credentials options:`,
+      `                     Wallet name:   ${wallet_name}`,
+      `                  Wallet address:   ${wallet_address}`,
+      `                     Wallet path:   ${wallet_path}`,
+      `                     Wallet seed:   ${wallet_seed}`,
+      `                         API Key:   ${api_key}`,
+      "                LibEVM options:",
+      `                      User level:   ${user_level}`,
+      `           Deployments directory:   ${deployments_dir}`,
+      `                 Target networks:   ${target_networks}`,
+      `               Network options:`,
+      `                 Maximum retries:   ${retries_max}`,
+      `                    Call timeout:   ${call_timeout}`,
+      `                  Parallel tasks:   ${tasks_parallel}`,
+      `           Application options:`,
+      `                 Cache directory:   ${cache_dir}`,
+    ]);
+  for ( _line of _text ) {
+    _msg_info(
+      _line);
+  }
+}
+
+async function
+  _main() {
+  let
+    _msg,
+    _result,
+    _results;
+  try {
+    const
+      _overrides_set_up =
+        await _overrides_set();
+  }
+  catch(
+    _error) {
+    _msg =
+      "Error setting overrides.";
+    _msg_error(
+      _msg,
+      0);
+    _echo2(
+      _error);
+    throw _error;
+  }
+  _config_show();
+  const
+    app_opts = [
+      target_command,
+      fs_address,
+      ccfs_address,
+      ll_address,
+      fs_version,
+      deployments_dir,
+      wallet_name,
+      wallet_path,
+      wallet_password,
+      wallet_seed,
+      target_networks,
+      api_key,
+      call_method,
+      index_network,
+      retries_max,
+      call_timeout,
+      lock_only,
+      chunk_length,
+      encoding_skip,
+      encoding_type,
+      tasks_parallel,
+      price_gas,
+      cache_dir,
+      user_level,
+      input_files,
+      output_files,
+      input_uris,
+      target_key,
+      target_value
+    ];
+  try {
+    _results =
+      await _evmfs.apply(
+        null,
+        app_opts);
+  }
+  catch(
+    _error) {
+    _msg =
+      "Error running '_evmfs' " +
+      "with arguments:";
+    _msg_error(
+      _msg,
+      0);
+    _echo2(
+      app_opts);
+    _echo2(
+      _error);
+    throw _error;
+  }
+  const
+    _results_type =
+      typeof(
+        _results);
+  if ( _results_type == "bigint" ) {
+    _echo(
+      _results.toString());
+  }
+  else if ( _results_type == "string" ) {
+    _echo(
+      _results);
+  }
+  else if ( _results_type == "object" ) {
+    for ( _result of _results ) {
+      _echo(
+        _result);
+    }
+  }
+  else if ( _results_type == "undefined" ) {
+    _msg =
+      `No results.`;
+    _msg_error(
+      _msg,
+      0);
+    throw _msg;
+  }
+  else {
+    _msg =
+      "Error retrieving results for command. " +
+      `Type of return: '${_results_type}'.`;
+    _msg_error(
+      _msg,
+      0);
+    throw _msg;
+  }
+}
+
+async function 
+  _cmdline_parse() {
+  let
+    _help_display,
+    _output_files;
+  const
+    _global =
+      _global_get();
+  const
+    _argv_args = {
+      "booleans": [
+        "h",
+        "help",
+        "Q",
+        "with-colons",
+        "v",
+        "verbose"
+      ],
+      "string":
+        true
+    };
+  const
+    _argv =
+      await _argv_get(
+        _argv_args);
+  const
+    _options =
+      _argv[
+        "_"];
+  _global[
+    "quiet"] = 
+    "y";
+  runtime_environment =
+    "node";
+  if ( _argv[
+         "v"] ||
+       _argv[
+         "verbose"]) {
+    _global[
+      "verbose"] =
+      true;
+  }
+  if ( _global[
+         "verbose"] ) {
+    _global[
+      "quiet"] =
+      "n";
+  }
+  if ( _argv[
+         "h"] ||
+       _argv[
+         "help"] ) {
+    _help_display =
+      true;
+  }
+  if ( _help_display ) {
+    _global[
+      "quiet"] =
+      "n";
+    await _overrides_set();
+    _usage(
+      0);
+  }
+  const
+    _argv_type =
+      typeof(
+        _argv); // why
+  if ( _argv_type !== "undefined" &&
+       0 < _argv[
+             "_"].length ) {
+    _set(
+      "target",
+      "command",
+      _argv[
+        "_"][
+          0]);
+  }
+  if ( _argv_type !== "undefined" &&
+       1 < _argv[
+             "_"].length ) {
+    _set(
+      "target",
+      "key",
+      _argv[
+        "_"][
+          1]);
+  }
+  if ( typeof(
+       _argv) != "undefined" &&
+       2 < _argv[
+             "_"].length ) {
+    _set(
+      "target",
+      "value",
+      _argv[
+        "_"][
+          2]);
+  }
+  if ( typeof(
+       _argv) != "undefined" &&
+       3 < _argv[
+             "_"].length ) {
+    const
+      _command_args =
+        _argv[
+          "_"].slice(
+          3,
+          _argv.length);
+    _set(
+      "command",
+      "args",
+      _command_args);
+  }
+  if ( "m" in _argv ) {
+    _set(
+      "call",
+      "method",
+      _argv[
+        "m"]);
+  }
+  if ( "call-method" in _argv ) {
+    _set(
+      "call",
+      "method",
+      _argv[
+        "call-method"]);
+  }
+  if ( "r" in _argv ) {
+    _set(
+      "retries",
+      "max",
+      _argv[
+        "r"]);
+  }
+  if ( "retries-max" in _argv ) {
+    _set(
+      "retries",
+      "max",
+      _argv[
+        "retries-max"]);
+  }
+  if ( "T" in _argv ) {
+    _set(
+      "call",
+      "timeout",
+      _argv[
+        "T"]);
+  }
+  if ( "call-timeout" in _argv ) {
+    _set(
+      "call",
+      "timeout",
+      _argv[
+        "call-timeout"]);
+  }
+  if ( "l" in _argv ) {
+    _set(
+      "chunk",
+      "length",
+      _argv[
+        "l"]);
+  }
+  if ( "chunk-length" in _argv ) {
+    _set(
+      "chunk",
+      "length",
+      _argv[
+        "chunk-length"]);
+  }
+  if ( "L" in _argv ) {
+    _set(
+      "lock",
+      "only",
+      "y");
+  }
+  if ( "lock-only" in _argv ) {
+    _set(
+      "lock",
+      "only",
+      "y");
+  }
+  if ( "P" in _argv ) {
+    _set(
+      "tasks",
+      "parallel",
+      _argv[
+        "P"]);
+  }
+  if ( "tasks-parallel" in _argv ) {
+    _set(
+      "tasks",
+      "parallel",
+      _argv[
+        "P"]);
+  }
+  if ( "i" in _argv ) {
+    _set(
+      "index",
+      "network",
+      _argv[
+        "i"]);
+  }
+  if ( "qr-support" in _argv ) {
+    _set(
+      "index",
+      "network",
+      _argv[
+        "index-network"]);
+  }
+  _output_files =
+    _get(
+      "output",
+      "files");
+  if ( "o" in _argv ) {
+    const
+      _output_files_argv_type =
+        typeof(
+          _argv[
+            "o"]);
+    if ( _output_files_argv_type === "string" ||
+         _output_files_argv_type === "number" ) {
+      _output_files.push(
+        _argv[
+          "o"]);
+    }
+    else if ( _output_files_argv_type === "object" ) {
+      _output_files =
+        _output_files.concat(
+        _argv[
+          "o"]);
+    }
+  }
+  if ( "output-file" in _argv ) {
+    const
+      _output_files_argv_type =
+        typeof(
+          _argv[
+            "output-file"]);
+    if ( _output_files_argv_type === "string" ||
+         _output_files_argv_type === "number" ) {
+      _output_files.push(
+        _argv[
+          "output-file"]);
+    }
+    else if ( _output_files_argv_type === "object" ) {
+      _output_files =
+        _output_files.concat(
+        _argv[
+          "output-file"]);
+    }
+  }
+  _set(
+    "output",
+    "files",
+    _output_files);
+  if ( "W" in _argv ) {
+    _set(
+      "cache",
+      "dir",
+      _argv[
+        "W"]);
+  }
+  if ( "cache-dir" in _argv ) {
+    _set(
+      "cache",
+      "dir",
+      _argv[
+        "cache-dir"]);
+  }
+  _libevm_cmdline_parse(
+    _argv);
+}
+
+function
+  _url_parse() {
+  const
+    _argv =
+      _argv_url_get();
+  _url_parse_common();
+  _url_parse_evmfs_get();
+  _url_parse_evmfs_publish();
+  _libevm_url_parse();
+  const
+    _global =
+      _global_get();
+  _global[
+    "quiet"] =
+    _argv_url_get(
+      "quiet");
+  if ( _global[
+         "quiet"].length === 0 ) {
+    _global[
+      "quiet"] =
+      "n";
+  }
+}
+
+_global_variables();
+_libevm_global_variables();
+_libevm_app_global_variables();
+if ( await _cmdline_check(
+       "evmfs.js") ||
+     await _cmdline_check(
+       "evmfs") ) {
+  const
+    _msg =
+      "Running 'evmfs' from the command line.";
+  _echo(
+    _msg);
+  await _cmdline_parse();
+}
+else {
+  const
+    _msg =
+      "Running 'evmfs' from a web browser.";
+  _echo(
+    _msg);
+  _url_parse();
+}
+try {
+  _main();
+}
+catch(
+  _error) {
+  const
+    _msg =
+      "Error running '_main'.";
+  _echo2(
+    _error);
+  _exit(
+    1);
+}
