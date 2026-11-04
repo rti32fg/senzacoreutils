@@ -38,6 +38,7 @@
     "test": "standard && node test"
   },
   "devDependencies": {
-    "standard": "^3.8.0"
+    "standard":
+      "^3.8.0"
   }
 }
