@@ -1,6 +1,6 @@
 {
   "name":
-    "sha256-file",
+    "@themartiancompany/sha256-file",
   "main":
     "index.js",
   "type":
@@ -8,13 +8,13 @@
   "files": [
     "index.js",
     "test.js",
-    "LICENSE.md",
+    "COPYING",
     "README.md"
   ],
   "version":
     "1.0.1",
   "description":
-    "Return a SHA256 sum of a given file.",
+    "Returns a SHA256 sum of a given file.",
   "keywords": [
     "sha256",
     "sha256sum",
