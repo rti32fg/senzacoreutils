@@ -26,7 +26,7 @@
 
 SHELL=bash
 PREFIX ?= /usr/local
-_PROJECT_NPM=sha256-file
+_PROJECT_NPM=senzacoreutils
 _PROJECT=$(_PROJECT_NPM)
 _NAMESPACE=themartiancompany
 DOC_DIR=$(DESTDIR)$(PREFIX)/share/doc/$(_PROJECT_NPM)
