@@ -1037,14 +1037,14 @@ async function
     ];
   try {
     _results =
-      await _evmfs.apply(
+      await _sha256sum.apply(
         null,
         app_opts);
   }
   catch(
     _error) {
     _msg =
-      "Error running '_evmfs' " +
+      "Error running '_sha256sum' " +
       "with arguments:";
     _msg_error(
       _msg,
@@ -1393,12 +1393,12 @@ _global_variables();
 _libevm_global_variables();
 _libevm_app_global_variables();
 if ( await _cmdline_check(
-       "evmfs.js") ||
+       "sha256sum.js") ||
      await _cmdline_check(
-       "evmfs") ) {
+       "sha256sum") ) {
   const
     _msg =
-      "Running 'evmfs' from the command line.";
+      "Running 'sha256sum' from the command line.";
   _echo(
     _msg);
   await _cmdline_parse();
@@ -1406,7 +1406,7 @@ if ( await _cmdline_check(
 else {
   const
     _msg =
-      "Running 'evmfs' from a web browser.";
+      "Running 'sha256sum' from a web browser.";
   _echo(
     _msg);
   _url_parse();
