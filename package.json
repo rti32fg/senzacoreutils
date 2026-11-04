@@ -36,8 +36,16 @@
   },
   "license": "AGPL3",
   "bugs": {
-    "url": "http://github.com/themartiancompany/senzacoreutils/issues",
-    "email": "pellegrinoprevete@gmail.com"
+    "url":
+      "http://github.com/themartiancompany/senzacoreutils/issues",
+    "email":
+      "dvorak@0x87003Bd6C074C713783df04f36517451fF34CBEf"
+  },
+  "yargs": {
+    "parse-numbers":
+      false,
+    "parse-positional-numbers":
+      false
   },
   "scripts": {
     "build-fs-worker":
