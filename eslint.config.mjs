@@ -53,6 +53,8 @@ export default defineConfig([
          "error" },
    files: [
      "**/*.{js,mjs,cjs}",
+       "**/libsha256sum",
+       "**/sha256sum"
    ],
    plugins:
      { js },
@@ -72,8 +74,6 @@ export default defineConfig([
          "error" },
    files:
      [ "**/*.{cjs,js}",
-       "**/libsha256sum",
-       "**/sha256sum"
      ],
    languageOptions:
      { sourceType:
