@@ -216,7 +216,7 @@ build-npm:
 	  install; \
 	npm \
 	  run \
-	    "build"; \
+	    build; \
 	npm \
 	  pack; \
 	mv \

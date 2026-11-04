@@ -40,10 +40,32 @@
     "email": "pellegrinoprevete@gmail.com"
   },
   "scripts": {
+    "build-fs-worker":
+      "npx webpack --mode 'production' --config 'fs-worker.webpack.config.cjs' --stats-error-details; for _app in evm-contract-call evm-contract-deployment-address evm-contract-deployment-abi evm-contract-deployment-bytecode evm-contract-deployment-compiler-output evm-contract-deployment-deployment-networks evm-contract-deployment-versions evm-contract-deployments-dir evm-contracts-tools; do cp 'fs-worker.js' \"dist/${_app}\"; cp 'fs-worker.js' \"dist/lib${_app}\" || true; done",
+    "build-libsha256sum":
+      "npx webpack --mode 'production' --config 'libsha256sum.webpack.config.cjs' --stats-error-details && mv -v 'libsha256sum.js' 'dist/libsha256sum'",
+    "build-sha256sum":
+      "_app='sha256sum'; npx webpack --mode 'production' --config \"${_app}.webpack.config.cjs\" --stats-error-details; mv -v \"${_app}.js\" \"dist/${_app}\"",
+    "build-bin":
+      "for _app in sha256sum; do npm run \"build-${_app}\"; done",
+    "build":
+      "npm run lint; npm run build-fs-worker; npm run build-lib; npm run build-bin",
+    "lint":
+      "npx eslint .",
+    "publish-npm":
+      "npm run build-man && npm run build && npm publish --access public",
+    "start":
+      "npx safely-serve 'dist/evm-contract-call'",
     "test":
       "standard && node test"
   },
+  "dependencies": {
+    "libcrash-js":
+      "npm:crash-js@^1000000000000018.1000000000000001.1000000000000001"
+  },
   "devDependencies": {
+    "crash-js-webpack":
+      "^0.0.82",
     "eslint":
       "^10.14.0",
     "glob":
@@ -51,7 +73,11 @@
     "@eslint/js":
       "^10.0.1",
     "standard":
-      "^17.1.2"
+      "^17.1.2",
+    "webpack":
+      "^5.109.2",
+    "webpack-cli":
+      "^7.2.2"
   },
   "overrides": {
     "glob":
