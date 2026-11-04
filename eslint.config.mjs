@@ -36,6 +36,8 @@ const
      "dist/**",
      `**/*.libsha256sum.js`,
      `**/*.sha256sum.js`,
+     `**/*.lib${_project}.js`,
+     `**/*.${_project}.js`,
      "node_modules/**",
      "eslint.config.js",
      "man/**"
@@ -51,8 +53,6 @@ export default defineConfig([
          "error" },
    files: [
      "**/*.{js,mjs,cjs}",
-     `**/libsha256sum`,
-     `**/sha256sum`
    ],
    plugins:
      { js },
