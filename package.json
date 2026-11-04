@@ -2,11 +2,11 @@
   "name":
     "@themartiancompany/sha256-file",
   "main":
-    "index.js",
+    "libsha256sum",
   "type":
     "module",
   "files": [
-    "index.js",
+    "libsha256sum",
     "test.js",
     "COPYING",
     "README.md"
