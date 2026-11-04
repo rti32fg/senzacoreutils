@@ -16,16 +16,16 @@
     "test.js"
   ],
   "version":
-    "1.0.1",
+    "1.0.2",
   "description":
-    "Returns a SHA256 sum of a given file.",
+    "Javascript partial port of GNU Coreutils.",
   "keywords": [
     "sha256",
     "sha256sum",
     "checksum"
   ],
   "homepage":
-    "https://github.com/themartiancompany/senzocoreutils",
+    "https://github.com/themartiancompany/senzacoreutils",
   "author": {
     "name": "Pellegrino Prevete",
     "email": "pellegrinoprevete@gmail.com"
