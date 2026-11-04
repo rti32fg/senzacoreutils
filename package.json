@@ -1,32 +1,38 @@
 {
-  "name": "sha256-file",
-  "main": "index.js",
+  "name":
+    "sha256-file",
+  "main":
+    "index.js",
+  "type":
+    "module",
   "files": [
     "index.js",
     "test.js",
     "LICENSE.md",
     "README.md"
   ],
-  "version": "1.0.0",
-  "description": "return an sha256sum of a given file",
+  "version":
+    "1.0.1",
+  "description":
+    "Return an sha256sum of a given file.",
   "keywords": [
     "sha256",
     "sha256sum",
     "checksum"
   ],
-  "homepage": "https://github.com/so-ta/sha256-file",
+  "homepage": "https://github.com/themartiancompany/sha256-file",
   "author": {
     "name": "Souta Ozaki",
     "email": "souta.ozaki@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/so-ta/sha256-file.git"
+    "url": "https://github.com/themartiancompany/sha256-file.git"
   },
-  "license": "MIT",
+  "license": "AGPL3",
   "bugs": {
-    "url": "http://github.com/so-ta/sha256-file/issues",
-    "email": "souta.ozaki@gmail.com"
+    "url": "http://github.com/themartiancompany/sha256-file/issues",
+    "email": "pellegrinoprevete@gmail.com"
   },
   "scripts": {
     "test": "standard && node test"
