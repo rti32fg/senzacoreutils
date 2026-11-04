@@ -692,21 +692,9 @@ function
 function
   _config_show() {
   let
-    _text;
-  /* LibEVM-defined global variables */
-  /* global
-       api_key */
-  /* global
-       wallet_address */
-  /* global
-       wallet_password */
-  /* global
-       wallet_path */
-  /* global
-       wallet_seed */
-  let
     _item,
-    _line;
+    _line,
+    _text;
   const
     _program =
       _basename(
@@ -716,59 +704,12 @@ function
     `${_program} configuration:`,
     `                       Call date:   ${call_date}`,
     `             Runtime environment:   ${runtime_environment}`,
-    `                  Target command:   ${target_command}`,
-    `                      Target key:   ${target_key}`,
-    `                    Target value:   ${target_value}`,
-    `                   Index network:   ${index_network}`,
-    `                     Call method:   ${call_method}`,
-    `                    Chunk length:   ${chunk_length}`,
-    `           Publication options:`,
-    `                       Lock only:   ${lock_only}`,
-    `                   Skip encoding:   ${encoding_skip}`,
-    `                   Encoding type:   ${encoding_type}`,
-    `                     Input files:`,
+    `                    Target files:`,
   ];
-  for ( _item of input_files ) {
+  for ( _item of target_files ) {
     _text.push(
       `                                    ${_item}`);
   }
-  _text.push(
-    "              Download options:");
-  _text.push(
-    `                      Input URIs:`);
-  for ( _item of input_uris ) {
-    _text.push(
-      `                                    ${_item}`);
-  }
-  _text.push(
-    `                    Output files:`);
-  for ( _item of output_files ) {
-    _text.push(
-      `                                    ${_item}`);
-  }
-  _text =
-    _text.concat([
-      "              Contract options:",
-      `             File system address:   ${fs_address}`,
-      ` Cross-chain file system address:   ${ccfs_address}`,
-      `             File system version:   ${fs_version}`,
-      `           Credentials options:`,
-      `                     Wallet name:   ${wallet_name}`,
-      `                  Wallet address:   ${wallet_address}`,
-      `                     Wallet path:   ${wallet_path}`,
-      `                     Wallet seed:   ${wallet_seed}`,
-      `                         API Key:   ${api_key}`,
-      "                LibEVM options:",
-      `                      User level:   ${user_level}`,
-      `           Deployments directory:   ${deployments_dir}`,
-      `                 Target networks:   ${target_networks}`,
-      `               Network options:`,
-      `                 Maximum retries:   ${retries_max}`,
-      `                    Call timeout:   ${call_timeout}`,
-      `                  Parallel tasks:   ${tasks_parallel}`,
-      `           Application options:`,
-      `                 Cache directory:   ${cache_dir}`,
-    ]);
   for ( _line of _text ) {
     _msg_info(
       _line);
