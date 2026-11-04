@@ -272,201 +272,24 @@ const
   _set =
     _libcrash._set;
 const
-  _libevm_module =
-    await _require(
-      "libevm");
-/* global
-     _contract_setup_auto_detect */
-const
-  _contract_setup_auto_detect =
-    _libevm_module._contract_setup_auto_detect;
-/* global
-     _libevm_app_overrides_set */
-const
-  _libevm_app_overrides_set =
-    _libevm_module._libevm_app_overrides_set;
-/* global
-     _libevm_cmdline_parse */
-const
-  _libevm_cmdline_parse =
-    _libevm_module._libevm_cmdline_parse;
-/* global
-     _libevm_global_variables */
-const
-  _libevm_global_variables =
-    _libevm_module._libevm_global_variables;
-/* global
-     _libevm_app_global_variables */
-const
-  _libevm_app_global_variables =
-    _libevm_module._libevm_app_global_variables;
-/* global
-     _libevm_url_parse */
-const
-  _libevm_url_parse =
-    _libevm_module._libevm_url_parse;
-/* global
-     _wallet_overrides_set */
-const
-  _wallet_overrides_set =
-    _libevm_module._wallet_overrides_set;
-const
-  _libevmfs_module =
+  _libsha256sum_module =
     await import(
-      "./libevmfs");
+      "./libsha256sum");
 /* global
-     _call_auth_auto_detect */
+     _sha256sum */
 const
-  _call_auth_auto_detect =
-    _libevmfs_module._call_auth_auto_detect;
-/* global
-     _call_timeout_auto_detect */
-const
-  _call_timeout_auto_detect =
-    _libevmfs_module._call_timeout_auto_detect;
-/* global
-     _contracts_auto_detect */
-const
-  _contracts_auto_detect =
-    _libevmfs_module._contracts_auto_detect;
-/* global
-     _input_files_auto_detect */
-const
-  _input_files_auto_detect =
-    _libevmfs_module._input_files_auto_detect;
-/* global
-     _input_uris_auto_detect */
-const
-  _input_uris_auto_detect =
-    _libevmfs_module._input_uris_auto_detect;
-/* global
-     _output_files_auto_detect */
-const
-  _output_files_auto_detect =
-    _libevmfs_module._output_files_auto_detect;
-/* global
-     _tasks_parallel_auto_detect */
-const
-  _tasks_parallel_auto_detect =
-    _libevmfs_module._tasks_parallel_auto_detect;
-/* global
-     _evmfs */
-const
-  _evmfs =
-    _libevmfs_module._evmfs;
-const
-  _ccget_module =
-    _libevmfs_module._ccget_module;
-/* global
-     _chunks_ccget */
-const
-  _chunks_ccget =
-    _ccget_module._chunks_ccget;
-const
-  _check_module =
-    _libevmfs_module._check_module;
-/* global
-     _chunks_check */
-const
-  _chunks_check =
-    _check_module._chunks_check;
-const
-  _common_module =
-    _libevmfs_module._common_module;
-/* global
-     _global_variables_common */
-const
-  _global_variables_common =
-    _common_module._global_variables_common;
-/* global
-     _global_variables_evmfs_get */
-const
-  _global_variables_evmfs_get =
-    _common_module._global_variables_evmfs_get;
-/* global
-     _global_variables_evmfs_publish */
-const
-  _global_variables_evmfs_publish =
-    _common_module._global_variables_evmfs_publish;
-/* global
-     _url_parse_common */
-const
-  _url_parse_common =
-    _common_module._url_parse_common;
-/* global
-     _url_parse_evmfs_get */
-const
-  _url_parse_evmfs_get =
-    _common_module._url_parse_evmfs_get;
-/* global
-     _url_parse_evmfs_publish */
-const
-  _url_parse_evmfs_publish =
-    _common_module._url_parse_evmfs_publish;
-/* global
-     _get_module */
-const
-  _get_module =
-    _libevmfs_module._get_module;
-/* global
-     _chunks_get */
-const
-  _chunks_get =
-    _get_module._chunks_get;
-const
-  _index_module =
-    _libevmfs_module._index_module;
-/* global
-     _chunks_index */
-const
-  _chunks_index =
-    _index_module._chunks_index;
-const
-  _lock_module =
-    _libevmfs_module._lock_module;
-/* global
-     _chunks_lock */
-const
-  _chunks_lock =
-    _lock_module._chunks_lock;
-const
-  _lengthlock_module =
-    _libevmfs_module._lengthlock_module;
-/* global
-     _lengthlock */
-const
-  _lengthlock =
-    _lengthlock_module._lengthlock;
-const
-  _publish_module =
-    _libevmfs_module._publish_module;
-/* global
-     _chunks_publish*/
-const
-  _chunks_publish =
-    _publish_module._chunks_publish;
-const
-  _publish_bulk_module =
-    _libevmfs_module._publish_bulk_module;
-/* global
-     _publish_bulk */
-const
-  _publish_bulk =
-    _publish_bulk_module._publish_bulk;
-const
-  _verify_module =
-    _libevmfs_module._verify_module;
-/* global
-     _chunks_verify */
-const
-  _chunks_verify =
-    _verify_module._chunks_verify;
+  _sha256sum =
+    _libsha256sum_module._sha256sum;
 
 function
   _global_variables() {
-  _global_variables_common();
-  _global_variables_evmfs_get();
-  _global_variables_evmfs_publish();
+  /* global
+       runtime_environment:
+         writable */
+  _set(
+    "runtime",
+    "environment",
+    "");
   /* global
        call_date:
          writable */
@@ -480,31 +303,13 @@ function
   _set(
     "app",
     "name",
-    "evmfs.js");
+    "sha256sum.js");
   /* global
-       target_command:
+       target_files:
          writable */
   _set(
     "target",
-    "command",
-    "");
-  /* global
-       target_key:
-         writable */
-  _set(
-    "target",
-    "key",
-    "");
-  /* global
-       target_value:
-         writable */
-  _set(
-    "target",
-    "value",
-    "");
-  _set(
-    "command",
-    "args",
+    "files",
     []);
   const
     _global =
@@ -1360,10 +1165,6 @@ function
   const
     _argv =
       _argv_url_get();
-  _url_parse_common();
-  _url_parse_evmfs_get();
-  _url_parse_evmfs_publish();
-  _libevm_url_parse();
   const
     _global =
       _global_get();
@@ -1380,8 +1181,6 @@ function
 }
 
 _global_variables();
-_libevm_global_variables();
-_libevm_app_global_variables();
 if ( await _cmdline_check(
        "sha256sum.js") ||
      await _cmdline_check(

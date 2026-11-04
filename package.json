@@ -65,7 +65,7 @@
     "start":
       "npx safely-serve 'dist/evm-contract-call'",
     "test":
-      "standard && node test"
+      "standard && node test.mjs"
   },
   "dependencies": {
     "libcrash-js":

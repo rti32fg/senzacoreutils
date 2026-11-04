@@ -76,7 +76,7 @@ function
         _error) {
       return _callback(
                _error,
-               null)
+               null);
       });
     _file_stream.on(
       'data',
@@ -84,13 +84,13 @@ function
         _chunk) {
         try {
           _sum.update(
-            _chunk)
+            _chunk);
         }
         catch (
           _ex) {
           return _callback(
                    _ex,
-                   null)
+                   null);
         }
       });
     _file_stream.on(
@@ -99,14 +99,15 @@ function
         return _callback(
                  null,
                  _sum.digest(
-                   'hex'))
-    })
+                   'hex'));
+      });
   }
   else {
     _sum.update(
       _read_file_sync(
         _file_path));
-    return _sum.digest('hex')
+    return _sum.digest(
+             'hex');
   }
 }
 
