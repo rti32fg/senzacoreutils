@@ -14,7 +14,7 @@
   "version":
     "1.0.1",
   "description":
-    "Return an sha256sum of a given file.",
+    "Return a SHA256 sum of a given file.",
   "keywords": [
     "sha256",
     "sha256sum",
