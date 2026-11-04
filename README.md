@@ -27,7 +27,15 @@
 [comment]: <> (If not, see <https://www.gnu.org/licenses/>.)
 
 
-# sha256-file
+# senzacoreutils
+
+As a partial replacement of GNU Coreutils,
+The Martian Company's `senzacoreutils` are
+a core component of the
+[DogeOS Android base](
+  https://github.com/themartiancompany/android).
+
+#### `sha256sum`
 
 > Simply return an `sha256` sum of a given file.
   If using async version (by including callback),
@@ -43,7 +51,7 @@ by coupling with
 ```console
 $ npm \
     install \
-      "@themartiancompany/sha256-file"
+      "senzacoreutils"
 ```
 
 __Test:__
@@ -61,12 +69,13 @@ __sha26sum(
 
 ```javascript
 const
-  _sha256_file_module =
+  _senza_core_utils =
     await import(
-      "@themartiancompany/sha256-file");
+      "senzacoreutils");
 const
   _sha256sum =
-    _sha256_file_module._sha256sum;
+    _senza_core_utils._sha256sum;
+
 // sync (no callback)
 _sha256sum(
   "./path/to/a_file");

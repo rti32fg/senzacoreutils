@@ -1,6 +1,6 @@
 {
   "name":
-    "@themartiancompany/sha256-file",
+    "sha256sum.js",
   "main":
     "libsha256sum",
   "type":
