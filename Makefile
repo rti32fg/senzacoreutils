@@ -68,6 +68,7 @@ NPM_FILES=\
   "dist" \
   $(_PROGRAMS) \
   "libsha256sum" \
+  "libsha256sum.webpack.config.cjs" \
   "sha256sum" \
   "sha256sum.webpack.config.cjs" \
   "eslint.config.mjs" \
