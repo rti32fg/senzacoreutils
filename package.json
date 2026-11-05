@@ -3,9 +3,9 @@
     "senzacoreutils",
   "bin": {
     "sha256sum":
-      "sha256sum",
+      "./sha256sum",
     "sha256sum.js":
-      "sha256sum"
+      "./sha256sum"
   },
   "main":
     "libsha256sum",
@@ -14,6 +14,7 @@
   "files": [
     "COPYING",
     "README.md",
+    "dist",
     "eslint.config.mjs",
     "libsha256sum",
     "sha256sum",
