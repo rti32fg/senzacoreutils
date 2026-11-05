@@ -30,12 +30,6 @@
  *     If not, see <https://www.gnu.org/licenses/>.
  */
 
-/* Crash Javascript global variables */
-
-  /* global
-       runtime_environment:
-         writable */
-
 /* eslint-disable
      no-unused-vars */
 
@@ -309,7 +303,7 @@ async function
   }
   _config_show();
   try {
-    for ( _file of _target_files ) {
+    for ( _file of target_files ) {
       _exists =
         _file_exists(
           _file);
