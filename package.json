@@ -2,6 +2,10 @@
   "name":
     "senzacoreutils",
   "bin": {
+    "du":
+      "./du",
+    "du.js":
+      "./du",
     "sha256sum":
       "./sha256sum",
     "sha256sum.js":
