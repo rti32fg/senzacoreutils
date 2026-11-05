@@ -35,24 +35,73 @@ a core component of the
 [DogeOS Android base](
   https://github.com/themartiancompany/android).
 
-#### `sha256sum`
+Adapted to be imported as an ES6 module in web browsers
+by coupling with
+[`tmcfs`](
+  https://github.com/themartiancompany/tmcfs)
+and the
+[Crash Javascript](
+  https://github.com/themartiancompany/crash-js)
+library.
+
+##### `sha256sum`
 
 > Simply return an `sha256` sum of a given file.
   If using async version (by including callback),
   it will stream; successfully tested on files 4 GB+.
 
-Adapted to be imported as an ES6 module in web browsers
-by coupling with
-[`tmcfs`](
-  https://github.com/themartiancompany/tmcfs).
+## Installation
 
-### Installation
+The tools in this source repo
+can be installed from source using GNU Make.
 
-```console
-$ npm \
-    install \
-      "senzacoreutils"
+```bash
+make \
+  install
 ```
+
+The collection has been officially published
+on the the uncensorable
+[Ur](
+  https://github.com/themartiancompany/ur)
+user repository and application store as
+`evm-contracts-tools`.
+The source code is published on the
+[Ethereum Virtual Machine File System](
+  https://github.com/themartiancompany/evmfs)
+so it can't possibly be taken down.
+
+To install it from there just type
+
+```bash
+ur \
+  evm-contracts-tools
+```
+
+The package has been released on the
+[NodeJS Package Registry](
+  https://npmjs.com/package/evm-contracts-tools)
+as well as `evm-contracts-tools` and can be installed
+with
+
+```bash
+npm \
+  install \
+    evm-contracts-tools
+```
+
+A censorable HTTP Github Gur mirror of the recipe published there,
+containing a full list of the software dependencies needed to run the
+tools is hosted on
+[evm-contracts-tools-ur](
+  https://github.com/themartiancompany/evm-contracts-tools-ur).
+
+Be aware the mirror could go offline any time as Github and more
+in general all HTTP resources are inherently unstable and censorable.
+
+## Development
+
+There is a test set for the `sha256sum` function.
 
 __Test:__
 
@@ -61,9 +110,19 @@ $ npm \
     test
 ```
 
-### API
+## Examples
 
-__sha26sum(
+Here follow examples of how to
+use the `sha256sum.js` command and
+`_sha256sum` function.
+
+
+```bash
+sha256sum.js \
+  "/path/to/a/file"
+```
+
+__sha256sum(
    path,
    [callback])__
 
@@ -78,12 +137,12 @@ const
 
 // sync (no callback)
 _sha256sum(
-  "./path/to/a_file");
+  "./path/to/a/file");
 // es. '345eec8796c03e90b9185e4ae3fc12c1e8ebafa540f7c7821fb5da7a54edc704'
 
 // async/streamed (if using callback)
 _sha256sum(
-  "./path/to/a_file",
+  "./path/to/a/file",
   function (
     _error,
     _sum) {
@@ -102,9 +161,7 @@ _sha256sum(
 This program is released under the terms of
 the GNU Affero General Public License version 3.
 
-### Thanks
-The `@themartiancompany/sha256-file`
-Javascript ES6 module is based on
+The `libsha256sum` library is based on
 [sha256-file](
   https://github.com/so-ta/sha256-file)
 and
