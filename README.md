@@ -75,26 +75,26 @@ To install it from there just type
 
 ```bash
 ur \
-  evm-contracts-tools
+  senzacoreutils
 ```
 
 The package has been released on the
 [NodeJS Package Registry](
-  https://npmjs.com/package/evm-contracts-tools)
-as well as `evm-contracts-tools` and can be installed
+  https://npmjs.com/package/senzacoreutils)
+as well as `senzacoreutils` and can be installed
 with
 
 ```bash
 npm \
   install \
-    evm-contracts-tools
+    senzacoreutils
 ```
 
 A censorable HTTP Github Gur mirror of the recipe published there,
 containing a full list of the software dependencies needed to run the
 tools is hosted on
-[evm-contracts-tools-ur](
-  https://github.com/themartiancompany/evm-contracts-tools-ur).
+[senzacoreutils-ur](
+  https://github.com/themartiancompany/senzacoreutils-ur).
 
 Be aware the mirror could go offline any time as Github and more
 in general all HTTP resources are inherently unstable and censorable.
