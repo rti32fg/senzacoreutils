@@ -16,7 +16,7 @@
       "./sha256sum"
   },
   "main":
-    "libsha256sum",
+    "senzacoreutils",
   "type":
     "module",
   "files": [
