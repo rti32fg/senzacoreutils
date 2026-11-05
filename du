@@ -295,7 +295,7 @@ async function
     _exists,
     _file,
     _msg,
-    _sum;
+    _size;
   try {
     const
       _overrides_set_up =
