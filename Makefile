@@ -272,6 +272,8 @@ install-man:
 	  "build/man/$(_PROJECT_NPM).1" \
 	  "$(MAN_DIR)/man1/$(_PROJECT_NPM).1"
 
+uninstall: uninstall-man uninstall-scripts
+
 uninstall-man:
 
 	cd \
@@ -292,4 +294,4 @@ uninstall-scripts:
 	  "$(LIB_DIR)" \
 	  "$(NODE_DIR)"
 
-.PHONY: check build-man build-npm build-scripts install install-doc install-man install-npm install-scripts shellcheck
+.PHONY: check build-man build-npm build-scripts install install-doc install-man install-npm install-scripts shellcheck uninstall-man uninstall-scripts uninstall
