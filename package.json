@@ -66,6 +66,8 @@
       "npx webpack --mode 'production' --config 'fs-worker.webpack.config.cjs' --stats-error-details; for _app in evm-contract-call evm-contract-deployment-address evm-contract-deployment-abi evm-contract-deployment-bytecode evm-contract-deployment-compiler-output evm-contract-deployment-deployment-networks evm-contract-deployment-versions evm-contract-deployments-dir evm-contracts-tools; do cp 'fs-worker.js' \"dist/${_app}\"; cp 'fs-worker.js' \"dist/lib${_app}\" || true; done",
     "build-libsha256sum":
       "npx webpack --mode 'production' --config 'libsha256sum.webpack.config.cjs' --stats-error-details && mv -v 'libsha256sum.js' 'dist/libsha256sum'",
+    "build-du":
+      "_app='du'; npx webpack --mode 'production' --config \"${_app}.webpack.config.cjs\" --stats-error-details; mv -v \"${_app}.js\" \"dist/${_app}\"",
     "build-sha256sum":
       "_app='sha256sum'; npx webpack --mode 'production' --config \"${_app}.webpack.config.cjs\" --stats-error-details; mv -v \"${_app}.js\" \"dist/${_app}\"",
     "build-lib":
@@ -79,7 +81,7 @@
     "publish-npm":
       "npm run build-man && npm run build && npm publish --access public",
     "start":
-      "npx safely-serve 'dist/evm-contract-call'",
+      "npx safely-serve 'dist/sha256sum'",
     "test":
       "standard && node test.mjs"
   },
