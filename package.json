@@ -54,6 +54,8 @@
       "npx webpack --mode 'production' --config 'libsha256sum.webpack.config.cjs' --stats-error-details && mv -v 'libsha256sum.js' 'dist/libsha256sum'",
     "build-sha256sum":
       "_app='sha256sum'; npx webpack --mode 'production' --config \"${_app}.webpack.config.cjs\" --stats-error-details; mv -v \"${_app}.js\" \"dist/${_app}\"",
+    "build-lib":
+      "for _app in sha256sum; do npm run \"build-lib${_app}\"; done",
     "build-bin":
       "for _app in sha256sum; do npm run \"build-${_app}\"; done",
     "build":
