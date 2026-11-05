@@ -576,6 +576,7 @@ function
 async function
   _main() {
   let
+    _file,
     _msg,
     _result,
     _results;
@@ -598,41 +599,16 @@ async function
   _config_show();
   const
     app_opts = [
-      target_command,
-      fs_address,
-      ccfs_address,
-      ll_address,
-      fs_version,
-      deployments_dir,
-      wallet_name,
-      wallet_path,
-      wallet_password,
-      wallet_seed,
-      target_networks,
-      api_key,
-      call_method,
-      index_network,
-      retries_max,
-      call_timeout,
-      lock_only,
-      chunk_length,
-      encoding_skip,
-      encoding_type,
-      tasks_parallel,
-      price_gas,
-      cache_dir,
-      user_level,
-      input_files,
-      output_files,
-      input_uris,
-      target_key,
-      target_value
+      target_files
     ];
+  
   try {
-    _results =
-      await _sha256sum.apply(
-        null,
-        app_opts);
+    _for ( _file of _target_files ) {
+      _result =
+        await _sha256sum.apply(
+          null,
+          app_opts);
+    }
   }
   catch(
     _error) {
