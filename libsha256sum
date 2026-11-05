@@ -35,15 +35,22 @@
 "use strict";
 
 const
-  _crypto =
+  _crash_js =
     await import(
+      "libcrash-js");
+const
+  _require =
+    _crash_js._require;
+const
+  _crypto =
+    await _require(
       "crypto");
 const
   _create_hash =
     _crypto.createHash;
 const
   _fs =
-    await import(
+    await _require(
       "tmcfs");
 const
   _create_read_stream =
