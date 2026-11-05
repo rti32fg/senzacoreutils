@@ -31,9 +31,9 @@
 
 As a partial replacement of GNU Coreutils,
 The Martian Company's `senzacoreutils` are
-a core component of the
-[DogeOS Android base](
-  https://github.com/themartiancompany/android).
+a core component of
+[DogeOS](
+  https://github.com/themartiancompany/dogeos).
 
 Adapted to be imported as an ES6 module in web browsers
 by coupling with
@@ -43,6 +43,11 @@ and the
 [Crash Javascript](
   https://github.com/themartiancompany/crash-js)
 library.
+
+##### `du`
+
+> Summarize device usage of the set of input files,
+  but not recursively because it's not implemented.
 
 ##### `sha256sum`
 
