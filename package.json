@@ -1,8 +1,12 @@
 {
   "name":
     "senzacoreutils",
-  "bin":
-    "sha256sum",
+  "bin": {
+    "sha256sum":
+      "sha256sum",
+    "sha256sum.js":
+      "sha256sum"
+  },
   "main":
     "libsha256sum",
   "type":
@@ -71,7 +75,9 @@
   },
   "dependencies": {
     "libcrash-js":
-      "npm:crash-js@^1000000000000018.1000000000000001.1000000000000001"
+      "npm:crash-js@^1000000000000018.1000000000000001.1000000000000001",
+    "tmcfs":
+      "npm:@themartiancompany/fs@^0.0.27"
   },
   "devDependencies": {
     "crash-js-webpack":
@@ -80,10 +86,16 @@
       "^10.14.0",
     "glob":
       "^14.0.3",
+    "@eslint/config-array":
+      "^0.23.5",
+    "@eslint/object-schema":
+      "^10.0.1",
     "@eslint/js":
       "^10.0.1",
     "minimatch":
       "^11.0.4",
+    "rimraf":
+      "^6.1.4",
     "standard":
       "^17.1.2",
     "webpack":
@@ -94,7 +106,13 @@
   "overrides": {
     "glob":
       "^14.0.3",
+    "@eslint/config-array":
+      "^0.23.5",
+    "@eslint/object-schema":
+      "^10.0.1",
     "minimatch":
-      "^11.0.4"
+      "^11.0.4",
+    "rimraf":
+      "^6.1.4"
   }
 }

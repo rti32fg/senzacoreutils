@@ -44,7 +44,7 @@ const
 const
   _fs =
     await import(
-      "fs");
+      "tmcfs");
 const
   _create_read_stream =
     _fs.createReadStream;
