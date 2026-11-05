@@ -112,6 +112,10 @@ module.exports = {
         _path.resolve(
           __dirname,
           'node_modules/stream-browserify/index.js'),
+      "vm":
+        _path.resolve(
+          __dirname,
+          'node_modules/vm-browserify/index.js'),
       "web-worker":
         _path.resolve(
           __dirname,
