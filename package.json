@@ -2,7 +2,7 @@
   "name":
     "senzacoreutils",
   "version":
-    "1.0.4",
+    "1.0.5",
   "description":
     "Javascript partial port of GNU Coreutils.",
   "bin": {
@@ -85,7 +85,7 @@
   },
   "dependencies": {
     "libcrash-js":
-      "npm:crash-js@^1000000000000018.1000000000000001.1000000000000001",
+      "npm:crash-js@^1000000000000019.1000000000000001.1000000000000001",
     "tmcfs":
       "npm:@themartiancompany/fs@^0.0.27"
   },
@@ -93,7 +93,7 @@
     "browserify-sign":
       "^4.2.6",
     "crash-js-webpack":
-      "^0.0.82",
+      "^0.0.83",
     "crypto-browserify":
       "^3.12.1",
     "eslint":
