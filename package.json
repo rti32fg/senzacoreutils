@@ -1,6 +1,10 @@
 {
   "name":
     "senzacoreutils",
+  "version":
+    "1.0.4",
+  "description":
+    "Javascript partial port of GNU Coreutils.",
   "bin": {
     "du":
       "./du",
@@ -18,17 +22,18 @@
   "files": [
     "COPYING",
     "README.md",
+    "du",
     "dist",
     "eslint.config.mjs",
     "libsha256sum",
     "sha256sum",
     "test.mjs"
   ],
-  "version":
-    "1.0.4",
-  "description":
-    "Javascript partial port of GNU Coreutils.",
   "keywords": [
+    "coreutils",
+    "du",
+    "dogeos",
+    "gnu",
     "sha256",
     "sha256sum",
     "checksum"
