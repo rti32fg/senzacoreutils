@@ -577,9 +577,7 @@ async function
   _main() {
   let
     _file,
-    _msg,
-    _result,
-    _results;
+    _msg;
   try {
     const
       _overrides_set_up =
@@ -603,11 +601,13 @@ async function
     ];
   
   try {
-    _for ( _file of _target_files ) {
-      _result =
+    for ( _file of _target_files ) {
+      _sum =
         await _sha256sum.apply(
           null,
           app_opts);
+      _echo(
+        `${_sum}  ${_file}`);
     }
   }
   catch(
