@@ -81,10 +81,12 @@
       "npm:@themartiancompany/fs@^0.0.27"
   },
   "devDependencies": {
+    "browserify-sign":
+      "^4.2.6",
     "crash-js-webpack":
       "^0.0.82",
     "crypto-browserify":
-      "^3.5.1",
+      "^3.12.1",
     "eslint":
       "^10.14.0",
     "glob":

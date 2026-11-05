@@ -110,11 +110,11 @@ install-scripts:
 	    "$(LIB_DIR)/nodejs/sha256sum"; \
 	  for _program in \
 	    $(_PROGRAMS); do \
-	    if [[ ! -s "$(BIN_DIR)/$${_program}" && \
-	          ! -e "$(BIN_DIR)/$${_program}" ]]; then \
+	    if [[ ! -s "$(BIN_DIR)/$${_program}.js" && \
+	          ! -e "$(BIN_DIR)/$${_program}.js" ]]; then \
 	      $(_MAKE_LINK) \
 	        "$(PREFIX)/lib/$(_PROJECT_NPM)/nodejs/$${_program}" \
-	        "$(BIN_DIR)/$${_program}"; \
+	        "$(BIN_DIR)/$${_program}.js"; \
 	    fi; \
 	  done; \
 	  rm \
