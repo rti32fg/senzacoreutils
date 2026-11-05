@@ -1,0 +1,482 @@
+#!/usr/bin/env node
+
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
+/**    -----------------------------------------------------------
+ *     evmfs.js
+ *     -----------------------------------------------------------
+ *     Copyright ©
+ *       Pellegrino Prevete
+ *         2024, 2025, 2026
+ * 
+ *     All rights reserved
+ *     -----------------------------------------------------------
+ * 
+ *     This program is free software: you can redistribute it
+ *     and/or modify it under the terms of the GNU General Public
+ *     License as published by the Free Software Foundation,
+ *     either version 3 of the License, or (at your option) any
+ *     later version.
+ * 
+ *     This program is distributed in the hope that it will be
+ *     useful, but WITHOUT ANY WARRANTY; without even the implied
+ *     warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ *     PURPOSE.
+ *     See the
+ *     GNU General Public License for more details.
+ * 
+ *     You should have received a copy of the GNU General Public
+ *     License along with this program.
+ *     If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/* eslint-disable
+     no-unused-vars */
+
+/* eslint
+     no-undef:
+       "error" */
+
+/* eslint
+     no-unused-vars: [
+       "error",
+       { "vars":
+           "local" }
+     ] */
+
+const
+  _libcrash =
+    await import(
+      "libcrash-js");
+/* global
+     _argv */
+const
+  _argv =
+    _libcrash._argv;
+/* global
+     _argv_get */
+const
+  _argv_get =
+    _libcrash._argv_get;
+/* global
+     _argv_url_get */
+const
+  _argv_url_get =
+    _libcrash._argv_url_get;
+/* global
+     _basename */
+const
+  _basename =
+    _libcrash._basename;
+/* global
+     _cmdline_check */
+const
+  _cmdline_check =
+    _libcrash._cmdline_check;
+/* global
+     _du */
+const
+  _du =
+    _libcrash._du;
+/* global
+     _echo */
+const
+  _echo =
+    _libcrash._echo;
+/* global
+     _echo2 */
+const
+  _echo2 =
+    _libcrash._echo2;
+/* global
+     _exit */
+const
+  _exit =
+    _libcrash._exit;
+/* global
+     _file_exists */
+const
+  _file_exists =
+    _libcrash._file_exists;
+/* global
+     _get */
+const
+  _get =
+    _libcrash._get;
+/* global
+     _get_date_human */
+const
+  _get_date_human =
+    _libcrash._get_date_human;
+/* global
+     _global_get */
+const
+  _global_get =
+    _libcrash._global_get;
+/* global
+     _homedir_get */
+const
+  _homedir_get =
+    _libcrash._homedir_get;
+/* global
+     _msg_error */
+const
+  _msg_error =
+    _libcrash._msg_error;
+/* global
+     _msg_info */
+const
+  _msg_info =
+    _libcrash._msg_info;
+/* global
+     _override_set */
+const
+  _override_set =
+    _libcrash._override_set;
+/* global
+     _path_join */
+const
+  _path_join =
+    _libcrash._path_join;
+/* global
+     _require */
+const
+  _require =
+    _libcrash._require;
+/* global
+     _set */
+const
+  _set =
+    _libcrash._set;
+const
+  _libsha256sum_module =
+    await import(
+      "./libsha256sum");
+/* global
+     _sha256sum */
+const
+  _sha256sum =
+    _libsha256sum_module._sha256sum;
+
+function
+  _global_variables() {
+  /* global
+       runtime_environment:
+         writable */
+  _set(
+    "runtime",
+    "environment",
+    "");
+  /* global
+       call_date:
+         writable */
+  _set(
+    "call",
+    "date",
+    "");
+  /* global
+       app_name:
+         writable */
+  _set(
+    "app",
+    "name",
+    "du.js");
+  /* global
+       target_files:
+         writable */
+  _set(
+    "target",
+    "files",
+    []);
+  const
+    _global =
+      _global_get();
+  _global[
+    "quiet"] =
+    "";
+  /* global
+       verbose:
+         writable */
+  _global[
+    "verbose"] =
+    "";
+}
+
+async function
+  _overrides_set() {
+  let
+    _msg;
+  _override_set(
+    "call",
+    "date",
+    _get_date_human());
+}
+
+function
+  _usage(
+    _exit_code) {
+  let
+    _line,
+    _program;
+  _program =
+    _basename(
+      _argv[
+        0]);
+  if ( _program === "node" ) {
+    _program =
+      _basename(
+        _argv[
+          1]);
+  }
+  const
+    _text = [
+      "",
+      "Print or check SHA256 (256-bit) checksums.",
+      "",
+      "Usage:",
+      `  ${_program}`,
+      "    [options]",
+      "    [file]",
+      "",
+      "  options:",
+      "",
+      "    -h, --help",
+      "",
+      "      This message.",
+      "",
+      "    -c, --color",
+      "",
+      "      Enable color output.",
+      "",
+      "    -v, --verbose",
+      "",
+      "      Enable verbose output.",
+      "",
+    ];
+  for ( _line of _text ) {
+    _echo(
+      _line);
+  }
+  _exit(
+    _exit_code);
+}
+
+function
+  _config_show() {
+  let
+    _item,
+    _line;
+  const
+    _program =
+      _basename(
+        _argv[
+          0]);
+  const
+    _text = [
+      `${_program} configuration:`,
+      `                       Call date:   ${call_date}`,
+      `             Runtime environment:   ${runtime_environment}`,
+      `                    Target files:`,
+    ];
+  for ( _item of target_files ) {
+    _text.push(
+      `                                    ${_item}`);
+  }
+  for ( _line of _text ) {
+    _msg_info(
+      _line);
+  }
+}
+
+async function
+  _main() {
+  let
+    _app_opts,
+    _exists,
+    _file,
+    _msg,
+    _sum;
+  try {
+    const
+      _overrides_set_up =
+        await _overrides_set();
+  }
+  catch(
+    _error) {
+    _msg =
+      "Error setting overrides.";
+    _msg_error(
+      _msg,
+      0);
+    _echo2(
+      _error);
+    throw _error;
+  }
+  _config_show();
+  try {
+    for ( _file of target_files ) {
+      _exists =
+        _file_exists(
+          _file);
+      if ( ! _exists ) {
+        _msg =
+          `File '${_file}' ` +
+          `does not exist.`;
+        throw _msg;
+      }
+      _app_opts = [
+        _file
+      ];
+      [ _size ] =
+        await _du.apply(
+          null,
+          _app_opts);
+      _echo(
+        `${_size}  ${_file}`);
+    }
+  }
+  catch(
+    _error) {
+    _msg =
+      "Error running '_du' " +
+      "with arguments:";
+    _msg_error(
+      _msg,
+      0);
+    _echo2(
+      _app_opts);
+    _echo2(
+      _error);
+    throw _error;
+  }
+}
+
+async function 
+  _cmdline_parse() {
+  let
+    _help_display,
+    _output_files;
+  const
+    _global =
+      _global_get();
+  const
+    _argv_args = {
+      "booleans": [
+        "h",
+        "help",
+        "Q",
+        "with-colons",
+        "v",
+        "verbose"
+      ],
+      "string":
+        true
+    };
+  const
+    _argv =
+      await _argv_get(
+        _argv_args);
+  const
+    _options =
+      _argv[
+        "_"];
+  _global[
+    "quiet"] = 
+    "y";
+  _set(
+    "runtime",
+    "environment",
+    "node");
+  if ( _argv[
+         "v"] ||
+       _argv[
+         "verbose"]) {
+    _global[
+      "verbose"] =
+      true;
+  }
+  if ( _global[
+         "verbose"] ) {
+    _global[
+      "quiet"] =
+      "n";
+  }
+  if ( _argv[
+         "h"] ||
+       _argv[
+         "help"] ) {
+    _help_display =
+      true;
+  }
+  if ( _help_display ) {
+    _global[
+      "quiet"] =
+      "n";
+    await _overrides_set();
+    _usage(
+      0);
+  }
+  const
+    _argv_type =
+      typeof(
+        _argv); // why
+  _set(
+    "target",
+    "files",
+    _argv[
+      "_"]);
+}
+
+function
+  _url_parse() {
+  const
+    _argv =
+      _argv_url_get();
+  const
+    _global =
+      _global_get();
+  _global[
+    "quiet"] =
+    _argv_url_get(
+      "quiet");
+  if ( _global[
+         "quiet"].length === 0 ) {
+    _global[
+      "quiet"] =
+      "n";
+  }
+}
+
+_global_variables();
+if ( await _cmdline_check(
+       "du.js") ||
+     await _cmdline_check(
+       "du") ) {
+  const
+    _msg =
+      "Running 'du' from the command line.";
+  _msg_info(
+    _msg);
+  await _cmdline_parse();
+}
+else {
+  const
+    _msg =
+      "Running 'du' from a web browser.";
+  _msg_info(
+    _msg);
+  _url_parse();
+}
+try {
+  _main();
+}
+catch(
+  _error) {
+  const
+    _msg =
+      "Error running '_main'.";
+  _echo2(
+    _error);
+  _exit(
+    1);
+}

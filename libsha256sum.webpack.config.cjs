@@ -1,5 +1,7 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 /**    ---------------------------------------------------------
- *     libevm-contract-call.webpack.config.cjs
+ *     libsha256sum.webpack.config.cjs
  *     ---------------------------------------------------------
  *     Copyright ©
  *       Pellegrino Prevete

@@ -59,6 +59,7 @@ DOC_FILES=\
   $(wildcard \
       *.md)
 _PROGRAMS=\
+  "du" \
   "sha256sum"
 NPM_FILES=\
   "README.md" \
