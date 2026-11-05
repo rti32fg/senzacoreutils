@@ -55,7 +55,9 @@ export default defineConfig([
          "error" },
    files: [
      "**/*.{js,mjs,cjs}",
+       "**/du",
        "**/libsha256sum",
+       `**/${_project}`,
        "**/sha256sum"
    ],
    plugins:

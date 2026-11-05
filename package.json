@@ -23,11 +23,16 @@
     "COPYING",
     "README.md",
     "du",
+    "du.webpack.config.cjs",
     "dist",
     "eslint.config.mjs",
     "libsha256sum",
+    "libsha256sum.webpack.config.cjs",
+    "senzacoreutils",
     "sha256sum",
-    "test.mjs"
+    "sha256sum.webpack.config.cjs",
+    "test.mjs",
+    "webpack.config.cjs"
   ],
   "keywords": [
     "coreutils",

@@ -74,6 +74,7 @@ NPM_FILES=\
   "eslint.config.mjs" \
   "fs-worker.webpack.config.cjs" \
   "package.json" \
+  "$(_PROJECT)" \
   "test.js" \
   "webpack.config.cjs"
 
