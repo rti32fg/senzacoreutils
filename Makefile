@@ -59,21 +59,21 @@ DOC_FILES=\
   $(wildcard \
       *.md)
 _PROGRAMS=\
-  "test.js"
+  "sha256sum"
 NPM_FILES=\
   "README.md" \
   "COPYING" \
   "AUTHORS.rst" \
   "Makefile" \
   "dist" \
-  $(_PROGRAMS) \
   "libsha256sum" \
   "libsha256sum.webpack.config.cjs" \
-  "sha256sum" \
+  $(_PROGRAMS) \
   "sha256sum.webpack.config.cjs" \
   "eslint.config.mjs" \
   "fs-worker.webpack.config.cjs" \
   "package.json" \
+  "test.js" \
   "webpack.config.cjs"
 
 all: build-man build-npm build-scripts
