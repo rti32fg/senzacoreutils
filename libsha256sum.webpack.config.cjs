@@ -92,6 +92,10 @@ module.exports = {
   },
   resolve: {
     alias: {
+      "crypto":
+        _path.resolve(
+          __dirname,
+          "node_modules/crypto-browserify/index.js"),
       "node:fs":
         _path.resolve(
           __dirname,
@@ -100,22 +104,6 @@ module.exports = {
         _path.resolve(
           __dirname,
           "node_modules/fs/fs"),
-      "evm-contracts-tools":
-        _path.resolve(
-          __dirname,
-          "evm-contracts-tools"),
-      "evm-transactions-tools":
-        _path.resolve(
-          __dirname,
-          "node_modules/evm-transactions-tools/evm-transactions-tools"),
-      "evm-wallet":
-        _path.resolve(
-          __dirname,
-          'node_modules/evm-wallet/libevm-wallet'),
-      "libevm":
-        _path.resolve(
-          __dirname,
-          'node_modules/libevm/libevm'),
       "path":
         _path.resolve(
           __dirname,

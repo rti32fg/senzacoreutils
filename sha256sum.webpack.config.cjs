@@ -92,6 +92,10 @@ module.exports = {
   },
   resolve: {
     alias: {
+      "crypto":
+        _path.resolve(
+          __dirname,
+          "node_modules/crypto-browserify/index.js"),
       "node:fs":
         _path.resolve(
           __dirname,
