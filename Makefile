@@ -107,7 +107,7 @@ install-scripts:
 	                '.files[]')) \
 	    "$(LIB_DIR)/nodejs"; \
 	  $(_MAKE_EXE) \
-	    "$(LIB_DIR)/nodejs/$(_PROJECT_NPM)"; \
+	    "$(LIB_DIR)/nodejs/sha256sum"; \
 	  for _program in \
 	    $(_PROGRAMS); do \
 	    if [[ ! -s "$(BIN_DIR)/$${_program}" && \

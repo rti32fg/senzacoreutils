@@ -101,6 +101,8 @@
       "^11.0.4",
     "rimraf":
       "^6.1.4",
+    "safely-serve":
+      "^0.0.22",
     "standard":
       "^17.1.2",
     "stream-browserify":
