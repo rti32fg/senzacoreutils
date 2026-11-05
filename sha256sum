@@ -211,12 +211,18 @@ function
   _usage(
     _exit_code) {
   let
-    _line;
-  const
+    _line,
+    _program;
+  _program =
+    _basename(
+      _argv[
+        0]);
+  if ( _program === "node" ) {
     _program =
       _basename(
         _argv[
-          0]);
+          1]);
+  }
   const
     _text = [
       "",
