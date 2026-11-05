@@ -95,6 +95,11 @@ const
   _exit =
     _libcrash._exit;
 /* global
+     _file_exists */
+const
+  _file_exists =
+    _libcrash._file_exists;
+/* global
      _get */
 const
   _get =
@@ -255,19 +260,19 @@ function
   _config_show() {
   let
     _item,
-    _line,
-    _text;
+    _line;
   const
     _program =
       _basename(
         _argv[
           0]);
-  _text = [
-    `${_program} configuration:`,
-    `                       Call date:   ${call_date}`,
-    `             Runtime environment:   ${runtime_environment}`,
-    `                    Target files:`,
-  ];
+  const
+    _text = [
+      `${_program} configuration:`,
+      `                       Call date:   ${call_date}`,
+      `             Runtime environment:   ${runtime_environment}`,
+      `                    Target files:`,
+    ];
   for ( _item of target_files ) {
     _text.push(
       `                                    ${_item}`);
@@ -282,8 +287,10 @@ async function
   _main() {
   let
     _app_opts,
+    _exists,
     _file,
-    _msg;
+    _msg,
+    _sum;
   try {
     const
       _overrides_set_up =
@@ -332,7 +339,7 @@ async function
       _msg,
       0);
     _echo2(
-      app_opts);
+      _app_opts);
     _echo2(
       _error);
     throw _error;
@@ -371,8 +378,10 @@ async function
   _global[
     "quiet"] = 
     "y";
-  runtime_environment =
-    "node";
+  _set(
+    "runtime",
+    "environment",
+    "node");
   if ( _argv[
          "v"] ||
        _argv[
@@ -406,210 +415,11 @@ async function
     _argv_type =
       typeof(
         _argv); // why
-  if ( _argv_type !== "undefined" &&
-       0 < _argv[
-             "_"].length ) {
-    _set(
-      "target",
-      "command",
-      _argv[
-        "_"][
-          0]);
-  }
-  if ( _argv_type !== "undefined" &&
-       1 < _argv[
-             "_"].length ) {
-    _set(
-      "target",
-      "key",
-      _argv[
-        "_"][
-          1]);
-  }
-  if ( typeof(
-       _argv) != "undefined" &&
-       2 < _argv[
-             "_"].length ) {
-    _set(
-      "target",
-      "value",
-      _argv[
-        "_"][
-          2]);
-  }
-  if ( typeof(
-       _argv) != "undefined" &&
-       3 < _argv[
-             "_"].length ) {
-    const
-      _command_args =
-        _argv[
-          "_"].slice(
-          3,
-          _argv.length);
-    _set(
-      "command",
-      "args",
-      _command_args);
-  }
-  if ( "m" in _argv ) {
-    _set(
-      "call",
-      "method",
-      _argv[
-        "m"]);
-  }
-  if ( "call-method" in _argv ) {
-    _set(
-      "call",
-      "method",
-      _argv[
-        "call-method"]);
-  }
-  if ( "r" in _argv ) {
-    _set(
-      "retries",
-      "max",
-      _argv[
-        "r"]);
-  }
-  if ( "retries-max" in _argv ) {
-    _set(
-      "retries",
-      "max",
-      _argv[
-        "retries-max"]);
-  }
-  if ( "T" in _argv ) {
-    _set(
-      "call",
-      "timeout",
-      _argv[
-        "T"]);
-  }
-  if ( "call-timeout" in _argv ) {
-    _set(
-      "call",
-      "timeout",
-      _argv[
-        "call-timeout"]);
-  }
-  if ( "l" in _argv ) {
-    _set(
-      "chunk",
-      "length",
-      _argv[
-        "l"]);
-  }
-  if ( "chunk-length" in _argv ) {
-    _set(
-      "chunk",
-      "length",
-      _argv[
-        "chunk-length"]);
-  }
-  if ( "L" in _argv ) {
-    _set(
-      "lock",
-      "only",
-      "y");
-  }
-  if ( "lock-only" in _argv ) {
-    _set(
-      "lock",
-      "only",
-      "y");
-  }
-  if ( "P" in _argv ) {
-    _set(
-      "tasks",
-      "parallel",
-      _argv[
-        "P"]);
-  }
-  if ( "tasks-parallel" in _argv ) {
-    _set(
-      "tasks",
-      "parallel",
-      _argv[
-        "P"]);
-  }
-  if ( "i" in _argv ) {
-    _set(
-      "index",
-      "network",
-      _argv[
-        "i"]);
-  }
-  if ( "qr-support" in _argv ) {
-    _set(
-      "index",
-      "network",
-      _argv[
-        "index-network"]);
-  }
-  _output_files =
-    _get(
-      "output",
-      "files");
-  if ( "o" in _argv ) {
-    const
-      _output_files_argv_type =
-        typeof(
-          _argv[
-            "o"]);
-    if ( _output_files_argv_type === "string" ||
-         _output_files_argv_type === "number" ) {
-      _output_files.push(
-        _argv[
-          "o"]);
-    }
-    else if ( _output_files_argv_type === "object" ) {
-      _output_files =
-        _output_files.concat(
-        _argv[
-          "o"]);
-    }
-  }
-  if ( "output-file" in _argv ) {
-    const
-      _output_files_argv_type =
-        typeof(
-          _argv[
-            "output-file"]);
-    if ( _output_files_argv_type === "string" ||
-         _output_files_argv_type === "number" ) {
-      _output_files.push(
-        _argv[
-          "output-file"]);
-    }
-    else if ( _output_files_argv_type === "object" ) {
-      _output_files =
-        _output_files.concat(
-        _argv[
-          "output-file"]);
-    }
-  }
   _set(
-    "output",
+    "target",
     "files",
-    _output_files);
-  if ( "W" in _argv ) {
-    _set(
-      "cache",
-      "dir",
-      _argv[
-        "W"]);
-  }
-  if ( "cache-dir" in _argv ) {
-    _set(
-      "cache",
-      "dir",
-      _argv[
-        "cache-dir"]);
-  }
-  _libevm_cmdline_parse(
-    _argv);
+    _argv[
+      "_"]);
 }
 
 function
