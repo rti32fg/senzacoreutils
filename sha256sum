@@ -281,6 +281,7 @@ function
 async function
   _main() {
   let
+    _app_opts,
     _file,
     _msg;
   try {
@@ -300,17 +301,24 @@ async function
     throw _error;
   }
   _config_show();
-  const
-    app_opts = [
-      target_files
-    ];
-  
   try {
     for ( _file of _target_files ) {
+      _exists =
+        _file_exists(
+          _file);
+      if ( ! _exists ) {
+        _msg =
+          `File '${_file}' ` +
+          `does not exist.`;
+        throw _msg;
+      }
+      _app_opts = [
+        _file
+      ];
       _sum =
         await _sha256sum.apply(
           null,
-          app_opts);
+          _app_opts);
       _echo(
         `${_sum}  ${_file}`);
     }
@@ -328,41 +336,6 @@ async function
     _echo2(
       _error);
     throw _error;
-  }
-  const
-    _results_type =
-      typeof(
-        _results);
-  if ( _results_type == "bigint" ) {
-    _echo(
-      _results.toString());
-  }
-  else if ( _results_type == "string" ) {
-    _echo(
-      _results);
-  }
-  else if ( _results_type == "object" ) {
-    for ( _result of _results ) {
-      _echo(
-        _result);
-    }
-  }
-  else if ( _results_type == "undefined" ) {
-    _msg =
-      `No results.`;
-    _msg_error(
-      _msg,
-      0);
-    throw _msg;
-  }
-  else {
-    _msg =
-      "Error retrieving results for command. " +
-      `Type of return: '${_results_type}'.`;
-    _msg_error(
-      _msg,
-      0);
-    throw _msg;
   }
 }
 
