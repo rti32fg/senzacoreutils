@@ -444,7 +444,7 @@ if ( await _cmdline_check(
   const
     _msg =
       "Running 'sha256sum' from the command line.";
-  _echo(
+  _msg_info(
     _msg);
   await _cmdline_parse();
 }
@@ -452,7 +452,7 @@ else {
   const
     _msg =
       "Running 'sha256sum' from a web browser.";
-  _echo(
+  _msg_info(
     _msg);
   _url_parse();
 }
